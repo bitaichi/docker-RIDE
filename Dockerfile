@@ -124,3 +124,18 @@ RUN set -ex; \
 			\( -type f -a \( -name '*.pyc' -o -name '*.pyo' \) \) \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
+
+# Install robotframework version 3.2.2
+RUN pip install robotframework==3.2.2
+
+# Install wxPython-4.0.7.post2, see https://github.com/robotframework/RIDE/blob/master/doc/releasenotes/ride-1.7.4.2.rst
+RUN pip install https://extras.wxpython.org/wxPython4/extras/linux/gtk3/ubuntu-18.04/wxPython-4.0.7.post2-cp37-cp37m-linux_x86_64.whl
+
+# Install robotframework-ride version 1.7.4.2
+RUN pip install robotframework-ride==1.7.4.2
+
+# Purge the pip cache to reduce image size
+RUN pip cache purge
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libgtk3.0 libxxf86vm1 libnotify4 libsdl1.2debian 
